@@ -1,0 +1,45 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: nclt_pg
+    command: postgres -c shared_preload_libraries=pg_stat_statements
+    ports: ["5432:5432"]
+    environment:
+    # local lab only
+      POSTGRES_USER: nclt_admin
+      POSTGRES_PASSWORD: de_password   
+      POSTGRES_DB: nclt_db
+    
+    # Docker's 64 MB default can break parallel queries
+    shm_size: 1gb                      
+    volumes:
+      - pgdata:/var/lib/postgresql     
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nclt_admin -d nclt_db"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development             # the dev container uses the dev stage
+    command: sleep infinity
+    volumes:
+      - .:/workspace
+      - uv-cache:/root/.cache/uv
+    environment:
+      # the service name, not localhost
+      PGHOST: postgres                 
+      PGPORT: "5432"
+      PGUSER: nclt_admin
+      PGPASSWORD: de_password
+      PGDATABASE: nclt_db
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  pgdata:
+  uv-cache:

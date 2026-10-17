@@ -1,0 +1,14 @@
+# Data is large and re-downloadable 
+# commit scripts and checksums, not files
+data/*
+!data/README.md
+!data/SHA256SUMS
+
+# Python
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+
+# macOS
+.DS_Store   
