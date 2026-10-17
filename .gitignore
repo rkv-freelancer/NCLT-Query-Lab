@@ -1,6 +1,5 @@
-# Data is large and re-downloadable 
-# commit scripts and checksums, not files
-data/*
+# Datasets
+data/
 !data/README.md
 !data/SHA256SUMS
 
