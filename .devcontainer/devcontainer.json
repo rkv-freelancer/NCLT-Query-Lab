@@ -3,14 +3,19 @@
   "dockerComposeFile": ["../docker-compose.yml"],
   "service": "app",
   "workspaceFolder": "/workspace",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+      "moby": false
+    }
+  },
   "postCreateCommand": "if [ -f pyproject.toml ]; then uv sync; fi",
   "customizations": {
     "vscode": {
       "extensions": ["ms-python.python", "charliermarsh.ruff"],
-      "settings": { 
+      "settings": {
         "python.defaultInterpreterPath": "/opt/venv/bin/python",
-        "python.envFile":""
-     }
+        "python.envFile": ""
+      }
     }
   }
 }
