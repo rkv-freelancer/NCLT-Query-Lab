@@ -1,0 +1,40 @@
+measured_at,label,setup,index_name,size_bytes,seconds
+2026-10-25T20:38:02+00:00,q1_btree,q1_btree,,,3.498
+2026-10-25T20:38:02+00:00,q1_btree,present on imu,bench_imu_btree,195330048,
+2026-10-25T20:43:12+00:00,q5_lateral,q1_btree,,,3.851
+2026-10-25T20:43:12+00:00,q5_lateral,present on imu,bench_imu_btree,195330048,
+2026-10-25T20:47:46+00:00,q1_brin,q1_brin,,,1.115
+2026-10-25T20:47:46+00:00,q1_brin,present on imu,bench_imu_brin,49152,
+2026-10-25T20:54:53+00:00,q1_brin_shuffled,q1_brin_shuffled,,,22.84
+2026-10-25T20:54:53+00:00,q1_brin_shuffled,present on imu_shuffled,bench_imu_shuffled_brin,49152,
+2026-10-25T20:56:22+00:00,q2_indexes,q2_indexes,,,0.369
+2026-10-25T20:56:22+00:00,q2_indexes,present on gps_rtk,bench_gps_rtk_btree,10313728,
+2026-10-25T20:56:22+00:00,q2_indexes,present on gps_rtk_err,bench_gps_rtk_err_btree,10313728,
+2026-10-25T20:56:22+00:00,q2_indexes,present on gps_rtk_err,bench_gps_rtk_err_error,7356416,
+2026-10-25T20:59:16+00:00,q3_summary,q3_summary,,,19.901
+2026-10-25T20:59:16+00:00,q3_summary,present on session_odometry_summary,session_odometry_summary_pkey,16384,
+2026-10-25T21:00:10+00:00,q4_btree,q4_btree,,,0.719
+2026-10-25T21:00:10+00:00,q4_btree,present on gps,bench_gps_btree,30097408,
+2026-10-25T21:00:10+00:00,q4_btree,present on session_odometry_summary,session_odometry_summary_pkey,16384,
+2026-10-25T21:05:44+00:00,q6_gist,q6_gist,,,1.243
+2026-10-25T21:05:44+00:00,q6_gist,present on gps,bench_gps_geom_gist,40189952,
+2026-10-25T21:05:44+00:00,q6_gist,present on session_odometry_summary,session_odometry_summary_pkey,16384,
+2026-10-25T21:14:23+00:00,final,final,,,18.434
+2026-10-25T21:14:23+00:00,final,present on gps,bench_gps_geom_gist,40189952,
+2026-10-25T21:14:23+00:00,final,present on gps,gps_pkey,30097408,
+2026-10-25T21:14:23+00:00,final,present on gps_rtk,gps_rtk_pkey,10313728,
+2026-10-25T21:14:23+00:00,final,present on gps_rtk_err,bench_gps_rtk_err_error,7356416,
+2026-10-25T21:14:23+00:00,final,present on gps_rtk_err,gps_rtk_err_pkey,10313728,
+2026-10-25T21:14:23+00:00,final,present on imu,imu_pkey,195330048,
+2026-10-25T21:14:23+00:00,final,present on odometry,odometry_pkey,444162048,
+2026-10-25T21:14:23+00:00,final,present on session_odometry_summary,session_odometry_summary_pkey,16384,
+2026-10-25T21:26:00+00:00,q1_btree_reversed,q1_btree_reversed,,,3.655
+2026-10-25T21:26:00+00:00,q1_btree_reversed,present on imu,bench_imu_utime_sid,195059712,
+2026-10-25T21:26:00+00:00,q1_btree_reversed,present on session_odometry_summary,session_odometry_summary_pkey,16384,
+2026-10-25T21:26:40+00:00,q1_utime,q1_utime,,,2.341
+2026-10-25T21:26:40+00:00,q1_utime,present on imu,bench_imu_utime,139108352,
+2026-10-25T21:26:40+00:00,q1_utime,present on session_odometry_summary,session_odometry_summary_pkey,16384,
+2026-10-25T21:27:08+00:00,q2_covering,q2_covering,,,0.262
+2026-10-25T21:27:08+00:00,q2_covering,present on gps_rtk,bench_gps_rtk_btree,10313728,
+2026-10-25T21:27:08+00:00,q2_covering,present on gps_rtk_err,bench_gps_rtk_err_cover,13238272,
+2026-10-25T21:27:08+00:00,q2_covering,present on session_odometry_summary,session_odometry_summary_pkey,16384,
