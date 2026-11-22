@@ -1,0 +1,35 @@
+# Step 9: P2 Explorer sweep (v0).
+# Every point on the Explorer page comes from a cell measured here.
+#
+#   python -m nclt_lab.sweep                 # run (resumable: finished cells are skipped)
+#   python -m nclt_lab.sweep --dry-run       # list the cells without running them
+#
+# Loops run from most to least expensive to change:
+#   technique (index builds)  >  memory (docker update, instant)  >  window (free)
+
+[sweep]
+name = "v0"
+query = "q1"
+windows_s = [1, 60, 600, 0]          # 0 = the whole session
+mem_limit_mb = [256, 512, 1024, 2048]
+techniques = ["none", "btree", "brin"]
+warm = 15
+cold = 10
+n_params = 5
+seed = 42
+
+# technique -> setup files in sql/experiments/ (applied once per technique)
+[techniques]
+none = []
+btree = ["q1_btree"]
+brin = ["q1_brin"]
+
+# Rerun at the start and end; if its warm p95 moves more than drift_limit, rerun the sweep.
+[baseline]
+technique = "none"
+mem_limit_mb = 512
+window_s = 60
+drift_limit = 0.10
+
+# TODO (v1): add the grids from the plan (G1 memory x data size x technique,
+# G2 technique x physical order, G3 work_mem x memory for Q4) as more [sweep] blocks.

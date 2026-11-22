@@ -1,0 +1,33 @@
+name: ci
+on: [push, pull_request]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_USER: nclt_admin
+          POSTGRES_PASSWORD: de_password
+          POSTGRES_DB: nclt_db
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U nclt_admin -d nclt_db"
+          --health-interval 2s --health-timeout 3s --health-retries 30
+    env:
+      # the job runs on the runner, not in a container
+      PGHOST: localhost        
+      PGPORT: "5432"
+      PGUSER: nclt_admin
+      PGPASSWORD: de_password
+      PGDATABASE: nclt_db
+    steps:
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --frozen
+      - run: make schema
+      - run: uv run make check
+      - run: docker build --target production -t nclt-lab:ci .
+      - run: docker run --rm nclt-lab:ci python -c "import nclt_lab"
+      # Once the loader exists, change the last line to: python -m nclt_lab.load --help
