@@ -1,0 +1,5 @@
+ALTER TABLE imu         DROP CONSTRAINT IF EXISTS imu_pkey;
+ALTER TABLE odometry    DROP CONSTRAINT IF EXISTS odometry_pkey;
+ALTER TABLE gps         DROP CONSTRAINT IF EXISTS gps_pkey;
+ALTER TABLE gps_rtk     DROP CONSTRAINT IF EXISTS gps_rtk_pkey;
+ALTER TABLE gps_rtk_err DROP CONSTRAINT IF EXISTS gps_rtk_err_pkey;
