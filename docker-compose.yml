@@ -1,21 +1,33 @@
 services:
   postgres:
-    image: postgres:18
+    # Postgres 18 + PostGIS (db.Dockerfile). Same server for every benchmark.
+    build:
+      context: .
+      dockerfile: db.Dockerfile
+    image: nclt-postgres:18-postgis
     container_name: nclt_pg
-    command: postgres -c shared_preload_libraries=pg_stat_statements
-    ports: ["5432:5432"]
+    command: >
+      postgres -c shared_preload_libraries=pg_stat_statements -c shared_buffers=128MB -c track_io_timing=on
+
+    # Container memory constraints
+    mem_limit: 256mb
+    # No swap: memswap_limit = mem_limit, so hitting the cap is a visible OOM.
+    memswap_limit: 256mb
+    # Parallel-query shared memory (/dev/shm); counts against the 512 MB cap when used
+    shm_size: 256mb
+
+    ports: [ "5432:5432" ]
     environment:
-    # local lab only
+      # Local lab only
       POSTGRES_USER: nclt_admin
-      POSTGRES_PASSWORD: de_password   
+      POSTGRES_PASSWORD: de_password
       POSTGRES_DB: nclt_db
-    
+
     # Docker's 64 MB default can break parallel queries
-    shm_size: 1gb                      
     volumes:
-      - pgdata:/var/lib/postgresql     
+      - pgdata:/var/lib/postgresql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U nclt_admin -d nclt_db"]
+      test: [ "CMD-SHELL", "pg_isready -U nclt_admin -d nclt_db" ]
       interval: 2s
       timeout: 3s
       retries: 30
@@ -24,14 +36,15 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: development             # the dev container uses the dev stage
+      # The dev container uses the dev stage
+      target: development
     command: sleep infinity
     volumes:
       - .:/workspace
       - uv-cache:/root/.cache/uv
     environment:
-      # the service name, not localhost
-      PGHOST: postgres                 
+      # The service name, not localhost
+      PGHOST: postgres
       PGPORT: "5432"
       PGUSER: nclt_admin
       PGPASSWORD: de_password
