@@ -1,0 +1,176 @@
+[
+  {
+    "Plan": {
+      "Node Type": "WindowAgg",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Startup Cost": 45944.77,
+      "Total Cost": 1426255.6,
+      "Plan Rows": 6192114,
+      "Plan Width": 90,
+      "Actual Startup Time": 211.638,
+      "Actual Total Time": 3179.705,
+      "Actual Rows": 2700.0,
+      "Actual Loops": 1,
+      "Disabled": false,
+      "Window": "w1 AS (PARTITION BY imu.session_id ORDER BY imu.utime ROWS UNBOUNDED PRECEDING)",
+      "Run Condition": "(row_number() OVER w1 <= 100)",
+      "Storage": "Memory",
+      "Maximum Storage": 17,
+      "Shared Hit Blocks": 6,
+      "Shared Read Blocks": 112186,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 74301,
+      "Temp Written Blocks": 74482,
+      "Shared I/O Read Time": 717.288,
+      "Shared I/O Write Time": 0.0,
+      "Local I/O Read Time": 0.0,
+      "Local I/O Write Time": 0.0,
+      "Temp I/O Read Time": 69.076,
+      "Temp I/O Write Time": 206.359,
+      "Plans": [
+        {
+          "Node Type": "Incremental Sort",
+          "Parent Relationship": "Outer",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Startup Cost": 45944.55,
+          "Total Cost": 1317893.6,
+          "Plan Rows": 6192114,
+          "Plan Width": 82,
+          "Actual Startup Time": 121.495,
+          "Actual Total Time": 2863.933,
+          "Actual Rows": 6192114.0,
+          "Actual Loops": 1,
+          "Disabled": false,
+          "Sort Key": [
+            "imu.session_id",
+            "imu.utime DESC"
+          ],
+          "Presorted Key": [
+            "imu.session_id"
+          ],
+          "Full-sort Groups": {
+            "Group Count": 27,
+            "Sort Methods Used": [
+              "quicksort"
+            ],
+            "Sort Space Memory": {
+              "Average Sort Space Used": 31,
+              "Peak Sort Space Used": 31
+            }
+          },
+          "Pre-sorted Groups": {
+            "Group Count": 27,
+            "Sort Methods Used": [
+              "external merge"
+            ],
+            "Sort Space Disk": {
+              "Average Sort Space Used": 30549,
+              "Peak Sort Space Used": 30728
+            }
+          },
+          "Shared Hit Blocks": 6,
+          "Shared Read Blocks": 112186,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Dirtied Blocks": 0,
+          "Local Written Blocks": 0,
+          "Temp Read Blocks": 74301,
+          "Temp Written Blocks": 74482,
+          "Shared I/O Read Time": 717.288,
+          "Shared I/O Write Time": 0.0,
+          "Local I/O Read Time": 0.0,
+          "Local I/O Write Time": 0.0,
+          "Temp I/O Read Time": 69.076,
+          "Temp I/O Write Time": 206.359,
+          "Plans": [
+            {
+              "Node Type": "Index Scan",
+              "Parent Relationship": "Outer",
+              "Parallel Aware": false,
+              "Async Capable": false,
+              "Scan Direction": "Forward",
+              "Index Name": "bench_imu_btree",
+              "Relation Name": "imu",
+              "Alias": "imu",
+              "Startup Cost": 0.43,
+              "Total Cost": 392821.27,
+              "Plan Rows": 6192114,
+              "Plan Width": 82,
+              "Actual Startup Time": 0.059,
+              "Actual Total Time": 1339.506,
+              "Actual Rows": 6192114.0,
+              "Actual Loops": 1,
+              "Disabled": false,
+              "Index Searches": 1,
+              "Shared Hit Blocks": 0,
+              "Shared Read Blocks": 112186,
+              "Shared Dirtied Blocks": 0,
+              "Shared Written Blocks": 0,
+              "Local Hit Blocks": 0,
+              "Local Read Blocks": 0,
+              "Local Dirtied Blocks": 0,
+              "Local Written Blocks": 0,
+              "Temp Read Blocks": 0,
+              "Temp Written Blocks": 0,
+              "Shared I/O Read Time": 717.288,
+              "Shared I/O Write Time": 0.0,
+              "Local I/O Read Time": 0.0,
+              "Local I/O Write Time": 0.0,
+              "Temp I/O Read Time": 0.0,
+              "Temp I/O Write Time": 0.0
+            }
+          ]
+        }
+      ]
+    },
+    "Planning": {
+      "Shared Hit Blocks": 88,
+      "Shared Read Blocks": 28,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 0,
+      "Temp Written Blocks": 0,
+      "Shared I/O Read Time": 0.444,
+      "Shared I/O Write Time": 0.0,
+      "Local I/O Read Time": 0.0,
+      "Local I/O Write Time": 0.0,
+      "Temp I/O Read Time": 0.0,
+      "Temp I/O Write Time": 0.0
+    },
+    "Planning Time": 0.935,
+    "Triggers": [],
+    "JIT": {
+      "Functions": 5,
+      "Options": {
+        "Inlining": true,
+        "Optimization": true,
+        "Expressions": true,
+        "Deforming": true
+      },
+      "Timing": {
+        "Generation": {
+          "Deform": 0.132,
+          "Total": 0.38
+        },
+        "Inlining": 50.844,
+        "Optimization": 19.467,
+        "Emission": 19.798,
+        "Total": 90.489
+      }
+    },
+    "Execution Time": 3205.907
+  }
+]
