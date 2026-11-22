@@ -1,19 +1,71 @@
-# Datasets
+# =============================================================================
+# NCLT Query Lab: .gitignore
+# =============================================================================
+
+# ---- Datasets ----------------------------------------------------------------
+# Raw archives, the ingest buffer and Parquet exports are reproducible from
+# scripts/download.sh and `make ingest`. "data/*" (not "data/") so the
+# exceptions below can be re-included.
 data/*
 !data/README.md
 !data/SHA256SUMS
 
-# Python
-.venv/
-__pycache__/
-.pytest_cache/
-.ruff_cache/
+# Large data files anywhere else in the repo
+*.tar.gz
+*.parquet
+*.rrd
 
-# macOS
-.DS_Store
-
-# Rerun recordings go to a GitHub Release, not git
-reports/*.rrd
-# Half-written export files
+# Half-written files from crash-safe writers (renamed into place when complete)
+*.tmp
 *.csv.tmp
 *.parquet.tmp
+
+# ---- Secrets and local environment ------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# ---- Python ------------------------------------------------------------------
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+.ipynb_checkpoints/
+# Keep uv.lock and .python-version committed: they pin the environment.
+
+# ---- Postgres / Docker -------------------------------------------------------
+# The database lives in the pgdata Docker volume, not in the repo; these catch
+# any dumps or local data folders created by hand.
+*.dump
+*.backup
+pgdata/
+
+# ---- Benchmarks and reports --------------------------------------------------
+# Commit: reports/*.png (README charts), reports/bench/*.csv (results),
+#         reports/profile.csv, reports/gap_coverage.csv, docs/explorer/.
+# Ignore: logs and scratch output.
+*.log
+reports/tmp/
+
+# ---- Editors and OS ----------------------------------------------------------
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+# Share VS Code workspace settings, but not personal state
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
